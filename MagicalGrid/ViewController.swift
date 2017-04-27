@@ -23,10 +23,25 @@ class ViewController: UIViewController {
                 let cellView = UIView()
                 cellView.backgroundColor = randomColor()
                 cellView.frame = CGRect(x: CGFloat(i) * width, y: CGFloat(j) * width, width: width, height:width)
+                cellView.layer.borderWidth = 0.5
+                cellView.layer.borderColor = UIColor.black.cgColor
                 view.addSubview(cellView)
             }
         }
         
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+    }
+    
+    func handlePan(gesture: UIPanGestureRecognizer){
+        let location = gesture.location(in: view)
+        print(location)
+        
+        for subview in view.subviews {
+            
+            if subview.frame.contains(location) {
+                subview.backgroundColor = .black
+            }
+        }
     }
     
     fileprivate func randomColor() -> UIColor {
